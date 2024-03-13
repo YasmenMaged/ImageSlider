@@ -6,38 +6,38 @@ const slideIcons = document.querySelectorAll(".slide-icon");
 const totalSlides = slides.length;
 let slideNumber = 0;
 
-function updateSlides(){
+function updateSlides() {
   slides.forEach((slide) => {
     slide.classList.remove("active");
   });
   slideIcons.forEach((slideIcon) => {
-    slideIcon.classList.remove("active"); 
+    slideIcon.classList.remove("active");
   });
   slides[slideNumber].classList.add("active");
   slideIcons[slideNumber].classList.add("active");
 }
 
-function nextSlide(){
+function nextSlide() {
   slideNumber++;
-  if(slideNumber > (totalSlides - 1) ){
+  if (slideNumber > totalSlides - 1) {
     slideNumber = 0;
   }
   updateSlides();
-} 
+}
 
-function previousSlide(){
+function previousSlide() {
   slideNumber--;
-  if(slideNumber < 0 ){
+  if (slideNumber < 0) {
     slideNumber = totalSlides - 1;
   }
   updateSlides();
 }
 
-function autoplay(){
+function autoplay() {
   playSlider = setInterval(() => {
     nextSlide();
     updateSlides();
-  }, 4000)
+  }, 4000);
 }
 
 nextButton.addEventListener("click", nextSlide);
@@ -48,7 +48,7 @@ slider.addEventListener("dblclick", () => {
   clearInterval(playSlider);
 });
 
-function showRandom(){
-  let randomNumber = Math.floor((Math.random()*6)+1);
-  document.getElementById("slide-img").src = "/images/"+ randomNumber + ".jpg";
+function showRandom() {
+  let randomNumber = Math.floor(Math.random() * 6 + 1);
+  document.getElementById("slide-img").src = "/images/" + randomNumber + ".jpg";
 }
