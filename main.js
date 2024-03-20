@@ -10,13 +10,16 @@ const descriptions = document.querySelectorAll(".description");
 const totalSlides = slides.length;
 let slideNumber = 0;
 
+let postTitles;
+let postDescriptions;
 
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
       const titlesData = data.map(item => item.title);
       const descriptionsData = data.map(item => item.body);
-      showRandom(titlesData);
+      postTitles = titlesData;
+      postDescriptions = descriptionsData;
       renderImageInfo(titlesData, descriptionsData);
     }).catch(error => console.error('Error fetching data:', error));
 
@@ -69,16 +72,16 @@ slider.addEventListener("dblclick", () => {
   clearInterval(playSlider);
 });
 
-function showRandom(titlesData) {
+function showRandom() {
   let randomNumber = Math.floor(Math.random() * 6 + 1);
   document.getElementById("slide-img").src = "/images/" + randomNumber + ".jpg";
-  updateSlides();
-
-      if(titlesData){
-        titles[randomNumber] = titlesData[randomNumber];
+  if(postTitles && postDescriptions){
+        const title = document.getElementsByClassName('title')[0];
+        const description = document.getElementsByClassName('description')[0];
+        title.innerText =  postTitles[randomNumber];
+        description.innerText =  postDescriptions[randomNumber];
       }
       else{
         console.log('error');
-        console.log(titlesData[randomNumber]);
       }
 }
